@@ -77,27 +77,32 @@ window.edit = function(idEdit){
     document.querySelector("#id").disabled = true; 
 }
 
-// Cap nhat du lieu
-document.querySelector("#btnUpdate").onclick = ()=>{
-    let proUpdate = new Product(); 
-    let arrInput = document.querySelectorAll("#form_product .form-control, #form_product .form-select");
-    for (let input of arrInput){
-        let {id, value} = input;
-        proUpdate [id] = value;
+document.querySelector('#btnUpdate').onclick = (e)=>{
+    //Lấy toàn bộ dữ liệu trên giao diện đưa vào object
+    //input: object sau khi người dùng sửa
+    let prodUpdate = new Product();
+    let arrInput = document.querySelectorAll('#form_product .form-control, #form_product .form-select');
+    for(let input of arrInput){
+        let {id,value} = input;
+        prodUpdate[id] = value;
     }
-    // console.log ('prod', proUpdate)
-    let prodArray = arrProduct.find((item) => item.id == proUpdate.id ); 
-     if(prodArray){
+    console.log('prod',prodUpdate);
+    //phần tử có id giống id trên giao diện được thay đổi dữ liệu tương ứng
+    let prodArray = arrProduct.find(item => item.id == prodUpdate.id); //Tìm product trong mảng xem product nào chứa id giống id trên giao diện -> lấy ra
+    if(prodArray){
         // prodArray.id = prodUpdate.id;
-        prodArray.name = proUpdate.name;
-        prodArray.price = proUpdate.price;
-        prodArray.img = proUpdate.img;
+        prodArray.name = prodUpdate.name;
+        prodArray.price = prodUpdate.price;
+        prodArray.type = prodUpdate.type;
+        prodArray.img = prodUpdate.img;
     }
+    //Sau khi cập nhật dữ liệu trong mảng thì từ mảng tạo ra lại giao diện
     loadTableProduct(arrProduct);
     saveProducts();
-    document.querySelector("#id").disabled = false; 
+    document.querySelector("#id").disabled= false;
 }
-
+//trigger đến nút btnClear (kêu nút clear click đi )
+    document.querySelector('#btnClear').click();
 
 
 // Search san pham
